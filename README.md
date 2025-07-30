@@ -1,5 +1,9 @@
 # 基于react-router-dom, view transition 实现路由切换过渡动效
 
+可以先看看效果以及代码
+
+[https://view-transition-demo.yangbingrui.info/](https://view-transition-demo.yangbingrui.info/)
+
 ## 背景
 
 在我之前的文章提到，用了 `framer-motion` 这个包来实现了路由切换时的过渡动效。
@@ -40,14 +44,6 @@ export const AnimatedOutlet = ({ OutletContext } = {}) => {
 ## 解决方案
 
 最近发现一个浏览器的特性 view-transition，可以轻松地给组件增加动效，而且基本只需要写 css 就行（**并且也要给 react-router-dom 的Link配置viewTransition属性为 true**）。于是我用这个特性来替换掉 frame-motion。
-
-## demo
-
-具体可看预览效果以及代码
-
-[https://view-transition-demo.yangbingrui.info/](https://view-transition-demo.yangbingrui.info/)
-
-![Static Badge](https://img.shields.io/github/stars/ybr54323/view-transition-demo?style=social)
 
 ## 一些细节
 
