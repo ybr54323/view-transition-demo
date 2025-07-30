@@ -45,10 +45,11 @@ export const AnimatedOutlet = ({ OutletContext } = {}) => {
 
 最近发现一个浏览器的特性 view-transition，可以轻松地给组件增加动效，而且基本只需要写 css 就行（**并且也要给 react-router-dom 的Link配置viewTransition属性为 true**）。于是我用这个特性来替换掉 frame-motion。
 
-## 一些细节
+## 一些实现的细节
 
-注意这个 css 写法，其中的关键就是这几行，`::view-transition-old` 代表的是切换时，浏览器当前帧的节点离开时的
-动效声明，`::view-transition-new` 代表的是浏览器下一帧新的节点进入时的动效声明，`b-page-transition`是对应节点的
+源码里面有些值得关注的细节：
+
+1. 注意这个 css 代码，其中的关键就是这几行，`::view-transition-old` 代表的是切换时，浏览器当前帧的节点离开时的动效声明，`::view-transition-new` 代表的是浏览器下一帧新的节点进入时的动效声明，`b-page-transition`是对应节点的
 `view-transition-name`。
 
 ```css
@@ -63,7 +64,7 @@ export const AnimatedOutlet = ({ OutletContext } = {}) => {
 }
 ```
 
-注意这个写法：
+2. 注意这个写法
 
 ```css
 .b-page:has(.c-page) {
