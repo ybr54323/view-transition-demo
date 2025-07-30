@@ -21,11 +21,11 @@ body {
 }
 .box {
   box-sizing: border-box;
-
   height: 100%;
   border: var(--border);
   border-radius: var(--border-radius);
   padding: var(--padding);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .b-page {

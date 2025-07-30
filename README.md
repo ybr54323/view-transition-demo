@@ -24,6 +24,32 @@ export const AnimatedOutlet = ({ OutletContext } = {}) => {
 
 虽说可以通过一些方式来避免这个副作用，但还是有点麻烦，于是在寻找替代方案。
 
-最近发现一个特性 view-transition，可以轻松地给组件增加动效，而且基本只需要写 css 就行。于是我用这个特性来替换掉 frame-motion
+最近发现一个特性 view-transition，可以轻松地给组件增加动效，而且基本只需要写 css 就行。于是我用这个特性来替换掉 frame-motion。
 
+具体可看预览效果以及代码
+
+[https://view-transition-demo.yangbingrui.info/](https://view-transition-demo.yangbingrui.info/)
+
+![Static Badge](https://img.shields.io/github/stars/ybr54323/view-transition-demo?style=social)
+
+注意这个写法：
+```css
+.b-page:has(.c-page) {
+  view-transition-name: none;
+  animation: none;
+}
+```
+之所以这样写，是因为切换 3 级路由时，不希望再触发 2 级路由的切换动效了，如果不这样写的话，那么切换时，2 、3 级的过渡动效都会被触发。
+
+还有一个点，这里之所以不把 c-page 放到 3 级页面那一层级，之所以这样写，是为了避免首次从 2 级跳到 3 级路由时页面轻微的跳动。
+
+```jsx
+const BPage = () => {
+    //...
+      <div className="c-page">
+        <Outlet />
+      </div>
+    //...
+};
+```
 

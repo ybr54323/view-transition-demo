@@ -1,11 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Link } from "react-router-dom";
+import { Link, useOutlet } from "react-router-dom";
 import "./index.css";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 const APage = () => {
+  const outlet = useOutlet();
   return (
     <div className="box box-with-menu">
       <ul>
@@ -15,35 +16,43 @@ const APage = () => {
           </Link>
         </li>
         <li>
-          <Link to="/b-page" viewTransition>
-            b-page
+          <Link to="/1-1" viewTransition>
+            1-1
           </Link>
         </li>
         <li>
-          <Link to="/e-page" viewTransition>
-            e-page
+          <Link to="/1-2" viewTransition>
+            1-2
           </Link>
         </li>
       </ul>
 
-      <div>
-        <Outlet />
-      </div>
+      {outlet || (
+        <div className="box b-page">
+          <h4 style={{ gridColumn: "1 / -1" }}>Welcome to A Page</h4>
+        </div>
+      )}
     </div>
   );
 };
 const BPage = () => {
   return (
-    <div className="box box-with-menu b-page">
+    <div
+      className="box box-with-menu b-page"
+      style={{
+        gridTemplateRows: "50px 1fr",
+      }}
+    >
+      <h4 style={{ gridColumn: "1 / -1" }}>Welcome to B Page</h4>
       <ul>
         <li>
-          <Link to="/b-page/c-page" viewTransition>
-            c-page
+          <Link to="/1-1/1" viewTransition>
+            1-1/1
           </Link>
         </li>
         <li>
-          <Link to="/b-page/d-page" viewTransition>
-            d-page
+          <Link to="/1-1/2" viewTransition>
+            1-1/2
           </Link>
         </li>
       </ul>
@@ -55,16 +64,7 @@ const BPage = () => {
   );
 };
 const CPage = () => {
-  return (
-    <div
-      className="box"
-      style={{
-        height: "100%",
-      }}
-    >
-      C Page
-    </div>
-  );
+  return <div className="box">C Page</div>;
 };
 const DPage = () => {
   return <div className="box">D Page</div>;
@@ -72,7 +72,7 @@ const DPage = () => {
 const EPage = () => {
   return (
     <div className="box b-page">
-      <div>E Page</div>
+      <h4 style={{ gridColumn: "1 / -1" }}>Welcome to E Page</h4>
     </div>
   );
 };
@@ -82,15 +82,15 @@ const router = createBrowserRouter([
     element: <APage />,
     children: [
       {
-        path: "b-page",
+        path: "1-1",
         element: <BPage />,
         children: [
-          { path: "c-page", element: <CPage /> },
-          { path: "d-page", element: <DPage /> },
+          { path: "1", element: <CPage /> },
+          { path: "2", element: <DPage /> },
         ],
       },
       {
-        path: "e-page",
+        path: "1-2",
         element: <EPage />,
       },
     ],
