@@ -1,0 +1,107 @@
+:root {
+  --padding: 16px;
+  --border-radius: 16px;
+  --border: 2px solid gray;
+
+  --b-page-transition-duration: 0.2s;
+  --c-page-transition-duration: 0.2s;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#root {
+  height: 100%;
+}
+.box-with-menu {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.box {
+  box-sizing: border-box;
+
+  height: 100%;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+}
+
+.b-page {
+  view-transition-name: b-page-transition;
+  animation: var(--b-page-transition-duration) ease-in-out both
+    b-page-transition-fade-in;
+}
+.b-page:has(.c-page) {
+  view-transition-name: none;
+  animation: none;
+}
+::view-transition-old(b-page-transition) {
+  animation: var(--b-page-transition-duration) ease-in-out both
+    b-page-transition-fade-out;
+}
+
+::view-transition-new(b-page-transition) {
+  animation: var(--b-page-transition-duration) var(--b-page-transition-duration)
+    ease-in-out both b-page-transition-fade-in;
+}
+
+.c-page {
+  view-transition-name: c-page-transition;
+  animation: c-page-transition-fade-in var(--c-page-transition-duration)
+    ease-in-out;
+}
+
+::view-transition-old(c-page-transition) {
+  animation: var(--c-page-transition-duration) ease-in-out both
+    c-page-transition-fade-out;
+}
+
+::view-transition-new(c-page-transition) {
+  animation: var(--c-page-transition-duration) var(--c-page-transition-duration)
+    ease-in-out both c-page-transition-fade-in;
+}
+
+@keyframes b-page-transition-fade-out {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(0%, 10%, 0);
+    opacity: 0;
+  }
+}
+@keyframes b-page-transition-fade-in {
+  from {
+    transform: translate3d(0%, -10%, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes c-page-transition-fade-out {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(-10%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes c-page-transition-fade-in {
+  from {
+    transform: translate3d(10%, 0, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
